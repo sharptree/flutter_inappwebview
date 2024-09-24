@@ -34,8 +34,9 @@ void applePayAPI() {
 </html>
                   """),
           initialSettings: InAppWebViewSettings(
-            applePayAPIEnabled: true,
-          ),
+              // FIXME: this is disabled due to Xcode 16 vs 15 issues
+              // applePayAPIEnabled: true,
+              ),
           onLoadStop: (controller, url) {
             pageLoaded.complete();
           },
