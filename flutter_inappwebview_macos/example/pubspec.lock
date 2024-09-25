@@ -78,10 +78,11 @@ packages:
   flutter_inappwebview_internal_annotations:
     dependency: transitive
     description:
-      name: flutter_inappwebview_internal_annotations
-      sha256: "5f80fd30e208ddded7dbbcd0d569e7995f9f63d45ea3f548d8dd4c0b473fb4c8"
-      url: "https://pub.dev"
-    source: hosted
+      path: "dev_packages/flutter_inappwebview_internal_annotations"
+      ref: sharptree
+      resolved-ref: "88ce644ce7a01cf78c2619b261829d46a0661c74"
+      url: "https://github.com/sharptree/flutter_inappwebview.git"
+    source: git
     version: "1.1.1"
   flutter_inappwebview_macos:
     dependency: "direct main"
@@ -89,15 +90,16 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.0.11"
+    version: "1.0.12"
   flutter_inappwebview_platform_interface:
     dependency: transitive
     description:
-      name: flutter_inappwebview_platform_interface
-      sha256: "545fd4c25a07d2775f7d5af05a979b2cac4fbf79393b0a7f5d33ba39ba4f6187"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.10"
+      path: flutter_inappwebview_platform_interface
+      ref: sharptree
+      resolved-ref: "88ce644ce7a01cf78c2619b261829d46a0661c74"
+      url: "https://github.com/sharptree/flutter_inappwebview.git"
+    source: git
+    version: "1.0.11"
   flutter_lints:
     dependency: "direct dev"
     description:

@@ -535,17 +535,18 @@ public class InAppWebView: WKWebView, WKUIDelegate,
     func setSettings(newSettings: InAppWebViewSettings, newSettingsMap: [String: Any]) {
         
         // MUST be the first! In this way, all the settings that uses evaluateJavaScript can be applied/blocked!
-        if newSettingsMap["applePayAPIEnabled"] != nil && settings?.applePayAPIEnabled != newSettings.applePayAPIEnabled {
-            if let settings = settings {
-                settings.applePayAPIEnabled = newSettings.applePayAPIEnabled
-            }
-            if !newSettings.applePayAPIEnabled {
-                // re-add WKUserScripts for the next page load
-                prepareAndAddUserScripts()
-            } else {
-                configuration.userContentController.removeAllUserScripts()
-            }
-        }
+// FIXME: applePayAPIEnabled is disabled due to issues with Xcode 15 and Xcode 16
+//        if newSettingsMap["applePayAPIEnabled"] != nil && settings?.applePayAPIEnabled != newSettings.applePayAPIEnabled {
+//            if let settings = settings {
+//                settings.applePayAPIEnabled = newSettings.applePayAPIEnabled
+//            }
+//            if !newSettings.applePayAPIEnabled {
+//                // re-add WKUserScripts for the next page load
+//                prepareAndAddUserScripts()
+//            } else {
+//                configuration.userContentController.removeAllUserScripts()
+//            }
+//        }
         
         if (newSettingsMap["incognito"] != nil && settings?.incognito != newSettings.incognito && newSettings.incognito) {
             configuration.websiteDataStore = WKWebsiteDataStore.nonPersistent()
@@ -867,15 +868,20 @@ public class InAppWebView: WKWebView, WKUIDelegate,
         }
     }
     
-    public override func evaluateJavaScript(_ javaScriptString: String, completionHandler: (@MainActor @Sendable (Any?, (any Error)?) -> Void)? = nil) {
-        if let applePayAPIEnabled = settings?.applePayAPIEnabled, applePayAPIEnabled {
-            if let completionHandler = completionHandler {
-                completionHandler(nil, nil)
-            }
-            return
-        }
-        super.evaluateJavaScript(javaScriptString, completionHandler: completionHandler)
-    }
+    // FIXME: Override compatibility between Xcode 15 and 16
+    // This override causes issues as the @MainActor @Sendable is required for compilation with Xcode 16, but these cause it to fail compilation with XCode 15.
+    // We currently require the ability to build with both Xcode 15 and 16 as automated builds do not yet support Xcode 16.
+    // As this override only exists to support applePayAPIEnabled (which we don't need), we have disabled applePayAPIEnabled and removed this override.
+
+//     public override func evaluateJavaScript(_ javaScriptString: String, completionHandler: (@MainActor @Sendable (Any?, (any Error)?) -> Void)? = nil) {
+//         if let applePayAPIEnabled = settings?.applePayAPIEnabled, applePayAPIEnabled {
+//             if let completionHandler = completionHandler {
+//                 completionHandler(nil, nil)
+//             }
+//             return
+//         }
+//         super.evaluateJavaScript(javaScriptString, completionHandler: completionHandler)
+//     }
     
     @available(macOS 11.0, *)
     public func evaluateJavaScript(_ javaScript: String, frame: WKFrameInfo? = nil, contentWorld: WKContentWorld, completionHandler: ((Result<Any, Error>) -> Void)? = nil) {

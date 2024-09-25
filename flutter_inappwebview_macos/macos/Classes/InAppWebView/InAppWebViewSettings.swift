@@ -46,7 +46,7 @@ public class InAppWebViewSettings: ISettings<InAppWebView> {
     var pageZoom = 1.0
     var limitsNavigationsToAppBoundDomains = false
     var useOnNavigationResponse = false
-    var applePayAPIEnabled = false
+    let applePayAPIEnabled = false
     var allowingReadAccessTo: String? = nil
     var underPageBackgroundColor: String?
     var isTextInteractionEnabled = true
@@ -61,10 +61,15 @@ public class InAppWebViewSettings: ISettings<InAppWebView> {
     }
     
     override func parse(settings: [String: Any?]) -> InAppWebViewSettings {
+        // FIXME: this is disabled due to Xcode 16 vs 15 issues
+        var settings = settings // re-assing to be able to use removeValue
+        settings.removeValue(forKey: "applePayAPIEnabled")
+        
         let _ = super.parse(settings: settings)
-        if #available(macOS 10.15, *) {} else {
-            applePayAPIEnabled = false
-        }
+// FIXME: this is disabled due to Xcode 16 vs 15 issues
+//        if #available(macOS 10.15, *) {} else {
+//            applePayAPIEnabled = false
+//        }
         return self
     }
     
