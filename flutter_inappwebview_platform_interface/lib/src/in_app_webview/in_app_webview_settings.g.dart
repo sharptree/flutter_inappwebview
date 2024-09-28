@@ -231,8 +231,7 @@ class InAppWebViewSettings {
   ///- iOS 13.0+
   ///- MacOS 10.15+
   ///
-  /// FIXME: Not supported at this time due to Xcode 15 vs 16 issues
-  final bool? applePayAPIEnabled;
+  bool? applePayAPIEnabled;
 
   ///Append to the existing user-agent. Setting userAgent will override this.
   ///
@@ -1316,8 +1315,7 @@ class InAppWebViewSettings {
       this.pageZoom = 1.0,
       this.limitsNavigationsToAppBoundDomains = false,
       this.useOnNavigationResponse,
-      // FIXME: this is disabled due to Xcode 16 vs 15 issues
-      // this.applePayAPIEnabled = false,
+      this.applePayAPIEnabled = false,
       this.allowingReadAccessTo,
       this.disableLongPressContextMenuOnLinks = false,
       this.disableInputAccessoryView = false,
@@ -1338,8 +1336,7 @@ class InAppWebViewSettings {
       this.iframeSandbox,
       this.iframeReferrerPolicy,
       this.iframeName,
-      this.iframeCsp})
-      : applePayAPIEnabled = false {
+      this.iframeCsp}) {
     if (this.minimumFontSize == null) this.minimumFontSize = Util.isAndroid ? 8 : 0;
     assert(this.resourceCustomSchemes == null ||
         (this.resourceCustomSchemes != null &&

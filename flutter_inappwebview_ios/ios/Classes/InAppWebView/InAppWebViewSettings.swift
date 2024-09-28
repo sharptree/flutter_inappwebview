@@ -68,7 +68,7 @@ public class InAppWebViewSettings: ISettings<InAppWebView> {
     var pageZoom = 1.0
     var limitsNavigationsToAppBoundDomains = false
     var useOnNavigationResponse = false
-    let applePayAPIEnabled = false
+    var applePayAPIEnabled = false
     var allowingReadAccessTo: String? = nil
     var disableLongPressContextMenuOnLinks = false
     var disableInputAccessoryView = false
@@ -97,15 +97,10 @@ public class InAppWebViewSettings: ISettings<InAppWebView> {
             maximumViewportInset = UIEdgeInsets.fromMap(map: maximumViewportInsetMap)
             settings.removeValue(forKey: "maximumViewportInset")
         }
-        
-        // FIXME: this is disabled due to Xcode 16 vs 15 issues
-        settings.removeValue(forKey: "applePayAPIEnabled")
-        
         let _ = super.parse(settings: settings)
-        // FIXME: this is disabled due to Xcode 16 vs 15 issues
-//        if #available(iOS 13.0, *) {} else {
-//            applePayAPIEnabled = false
-//        }
+        if #available(iOS 13.0, *) {} else {
+            applePayAPIEnabled = false
+        }
         return self
     }
     
